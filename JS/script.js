@@ -31,3 +31,21 @@ $("#bar").click(function() {
     click = 1 
   }
 })
+
+$("#pass-button").change(function (e) { 
+  e.preventDefault();
+  var isCheck = $(this).prop('checked')
+  if(isCheck) {
+    $("#password").attr("type", "text");
+    $(".bg-pass").toggleClass("h-0");
+    $(".bg-pass").toggleClass("h-4");
+    $(".bg-pass").toggleClass("w-0");
+    $(".bg-pass").toggleClass("w-4");
+  }else{
+    $("#password").attr("type", "password");
+    $(".bg-pass").toggleClass("h-0");
+    $(".bg-pass").toggleClass("h-4");
+    $(".bg-pass").toggleClass("w-0");
+    $(".bg-pass").toggleClass("w-4");
+  }
+});
