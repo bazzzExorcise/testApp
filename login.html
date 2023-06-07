@@ -12,14 +12,13 @@
     <style>body{font-family: nunito;}</style>
   </head>
   <body>
-    <div class="w-full bg-gray-100 min-h-screen md:h-screen flex text-sm flex-col md:flex-row items-stretch">
-      <div class="w-full ">
-        <img src="images/desktop.png" class="w-full h-full object-cover" alt="">
+    <div class="w-full bg-gray-100 h-screen flex text-sm flex-col md:flex-row items-stretch">
+      <div class="h-full flex">
       </div>
-      <form class="w-full md:items-start md:justify-center justify-center py-4 flex px-3 h-full flex-col">
+      <form class="w-full md:items-center md:justify-center py-4 h-full flex px-3 flex-col">
         <div class="mb-4">
-          <h1 class="font-extrabold w-full text-xl">Masuk / Daftar</h1>
-          <p class="text">silahkan login dengan akun yang anda punya</p>
+          <h1 class="font-extrabold w-full text-xl capitalize">Hallo Selamat datang kembali</h1>
+          <p>silahkan login dengan akun yang anda punya</p>
         </div>
         <div class="md:max-w-sm flex mt-3 flex-col group w-full relative">
           <div class="py-2 px-3 border group-hover:left-2 group-hover:top-2 duration-300 border-black w-full text-xs rounded bg-black absolute top-1 left-1">sa</div>
@@ -29,7 +28,7 @@
           <div class="py-2 px-3 border group-hover:left-2 group-hover:top-2 duration-300 border-black w-full text-xs rounded bg-black absolute top-1 left-1">sa</div>
           <input id="password" type="password" class="py-2 px-3 focus:outline-none border border-black w-full text-xs focus:placeholder:-translate-y-5 duration-500 placeholder:duration-300 transition-all rounded z-20 bg-white" placeholder="password">
         </div>
-        <div class="flex mt-3 gap-2 group w-full relative items-center">
+        <div class="flex mt-3 gap-2 group w-full md:max-w-sm relative items-center">
           <input type="checkbox" name="" id="pass-button" class="hidden">
           <label for="pass-button" class="h-4 aspect-square bg-white overflow-hidden grid place-items-center border-black rounded border relative text-white">
             <div class="bg-pass absolute w-0 h-0 duration-700 bg-black"></div>
@@ -37,20 +36,13 @@
           </label>
           <label for="pass-button" class="font-medium text-sm">lihat password</label>
         </div>
-        <div class="w-full mb-10">
+        <div class="w-full mb-10 flex justify-center">
           <button class="md:max-w-sm rounded w-full relative group mt-4"> 
             <div class="absolute w-full px-3 py-2 group-hover:top-2 group-hover:left-2 duration-200 rounded border-2 border-black top-1 left-1 text-white">Lanjutkan</div>
             <div id="login" class="w-full absolute btn-log px-3 py-2 rounded bg-black border-2 border-black text-white">Lanjutkan</div>
           </button>
         </div>
-        <div class="flex justify-center items-center mt-2">
-          <div class="relative">
-            <div class="flex p-0.5 justify-center z-50 bg-white gap-1 rounded border border-black">
-              <h1 class="px-4 py-1 duration-500 text-white cursor-pointer bg-black rounded chng-btn" id="login">login</h1>
-              <h1 class="px-4 py-1 duration-500 text-black cursor-pointer bg-white rounded chng-btn" id="registrasi">registrasi</h1>
-            </div>
-          </div>
-        </div>
+        <p class="text-xs mt-3">belum memiliki akun yah? silahkan  <a href="" class="underline">buat akun anda disini</a></p>
       </form>
     </div>
     <script src="JS/script.js"></script>

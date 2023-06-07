@@ -9,9 +9,17 @@
     <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,regular,500,600,700,800,900,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic" rel="stylesheet" />
     <title>Tailwindcss Element | Website HItam Putih</title>
-    <style>body{font-family: nunito;}</style>
+    <style>
+    body{
+      font-family: nunito;
+    }
+    ::-webkit-scrollbar{
+      width: 0;
+      height: 0;
+    }
+    </style>
   </head>
-  <body class="bg-gray-100 text-sm">
+  <body class="bg-gray-100 text-sm overflow-x-hidden">
     <div class="flex justify-between items-center fixed top-0 left-0 w-full py-2 md:py-3 px-4 md:px-16 lg:px-36">
       <div class="grid">
         <h1 class="-mb-1 font-extrabold">XOXO ex</h1>
@@ -31,18 +39,70 @@
         <div id="box-2" class="w-40 h-60 md:hidden fixed duration-300 top-12 rounded-md -right-full border-2 border-black"></div>
       </div>
     </div>
-    <div class="mt-20 w-full md:px-36 px-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
-      <div class="w-full flex col-span-2 flex-col">
-        <h1 class="mb-4 font-extrabold text-4xl">Hallo Alif,</h1>
-        <h1 id="tanggal" class="font-bold capitalize"></h1>
-        <p>siapkan hari ini buat kamu berangkat sekolah. ayo awali hari seninmu dengan senyuman di pagi hari</p>
-        <i class="mt-4 font-extrabold">ready for your exam today</i>
-        <div class="flex gap-2 mt-2">
-          <div class="relative w-10 aspect-square group">
-            <div class="w-full h-full z-10 absolute border left-0 top-0 group-hover:top-1 duration-300 group-hover:left-1  border-black rounded-md"></div>
-            <div class="w-full relative bg-white z-30 grid place-items-center border rounded-md border-black h-full text-xl">
-              <ion-icon name="calculator"></ion-icon>
-            </div>
+    <div class="mt-20 w-full md:px-36 px-3 grid grid-cols-1 md:grid-cols-2 grid-rows-6 lg:grid-cols-4">
+      <div class="min-w-full flex col-span-2 flex-col">
+        <h1 class="mb-4 font-extrabold text-2xl">Selamat Datang Alif</h1>
+        <p>kamu adalah orang yang jujur dan amanah tercatat kamu belom pernah mencoba untuk mencontek</p>
+      </div>
+      <div class="col-span-2 w-full grid grid-cols-1 md:grid-cols-2 gap-3 gap-2 rows-pan-6">
+        <div class="w-full mb-2 bg-white after:-z-10 after:content-[''] after:w-full after:h-full after:bg-black after:absolute after:-z-30 after:left-1 after:rounded-md after:duration-300 hover:after:top-2 hover:after:left-2 after:top-1 relative z-30 border border-black rounded-md flex flex-col">
+          <div class="bg-black text-white p-4">
+            <b>PAT(Penilaian Akhir Tahun)</b>
+            <p class="text-xs text-gray-300">Senin, 12 Januari 2023</p>
+          </div>
+          <div class="p-4 grid bg-white overflow-hidden rounded-b-md grid-cols-2">
+            <p>matematika</p>
+            <p>07.00 - 09.30</p>
+            <p>biologi</p>
+            <p>10.00 - 12.00</p>
+          </div>
+        </div>
+        <div class="w-full mb-2 bg-white after:-z-10 after:content-[''] after:w-full after:h-full after:bg-black after:absolute after:-z-30 after:left-1 after:rounded-md after:duration-300 hover:after:top-2 hover:after:left-2 after:top-1 relative z-30 border border-black rounded-md flex flex-col">
+          <div class="bg-black text-white p-4">
+            <b>PAT(Penilaian Akhir Tahun)</b>
+            <p class="text-xs text-gray-300">Senin, 12 Januari 2023</p>
+          </div>
+          <div class="p-4 grid bg-white overflow-hidden rounded-b-md grid-cols-2">
+            <p>matematika</p>
+            <p>07.00 - 09.30</p>
+            <p>biologi</p>
+            <p>10.00 - 12.00</p>
+          </div>
+        </div>
+        <div class="w-full mb-2 bg-white after:-z-10 after:content-[''] after:w-full after:h-full after:bg-black after:absolute after:-z-30 after:left-1 after:rounded-md after:duration-300 hover:after:top-2 hover:after:left-2 after:top-1 relative z-30 border border-black rounded-md flex flex-col">
+          <div class="bg-black text-white p-4">
+            <b>PAT(Penilaian Akhir Tahun)</b>
+            <p class="text-xs text-gray-300">Senin, 12 Januari 2023</p>
+          </div>
+          <div class="p-4 grid bg-white overflow-hidden rounded-b-md grid-cols-2">
+            <p>matematika</p>
+            <p>07.00 - 09.30</p>
+            <p>biologi</p>
+            <p>10.00 - 12.00</p>
+          </div>
+        </div>
+        <div class="w-full mb-2 bg-white after:-z-10 after:content-[''] after:w-full after:h-full after:bg-black after:absolute after:-z-30 after:left-1 after:rounded-md after:duration-300 hover:after:top-2 hover:after:left-2 after:top-1 relative z-30 border border-black rounded-md flex flex-col">
+          <div class="bg-black text-white p-4">
+            <b>PAT(Penilaian Akhir Tahun)</b>
+            <p class="text-xs text-gray-300">Senin, 12 Januari 2023</p>
+          </div>
+          <div class="p-4 grid bg-white overflow-hidden rounded-b-md grid-cols-2">
+            <p>matematika</p>
+            <p>07.00 - 09.30</p>
+            <p>biologi</p>
+            <p>10.00 - 12.00</p>
+          </div>
+        </div>
+        <div class="w-full mb-2 bg-white after:-z-10 after:content-[''] after:w-full after:h-full after:bg-black after:absolute after:-z-30 after:left-1 after:rounded-md after:duration-300 hover:after:top-2 hover:after:left-2 after:top-1 relative z-30 border border-black rounded-md flex flex-col">
+          <div class="bg-black text-white p-4">
+            <b>PAT(Penilaian Akhir Tahun)</b>
+            <p class="text-xs text-gray-300">Senin, 12 Januari 2023</p>
+          </div>
+          <div class="p-4 grid bg-white overflow-hidden rounded-b-md grid-cols-2">
+            <p>matematika</p>
+            <p>07.00 - 09.30</p>
+            <p>biologi</p>
+            <p>10.00 - 12.00</p>
           </div>
         </div>
       </div>
