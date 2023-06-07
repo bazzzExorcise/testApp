@@ -49,3 +49,25 @@ $("#pass-button").change(function (e) {
     $(".bg-pass").toggleClass("w-4");
   }
 });
+
+let login = 1;
+$(".chng-btn").click(function (e) { 
+  e.preventDefault();
+  $(".chng-btn").toggleClass("bg-black");
+  $(".chng-btn").toggleClass("text-black");
+  $(".chng-btn").toggleClass("text-white");
+  $(".chng-btn").toggleClass("bg-white");
+  $("#hidden").toggleClass("opacity-0");
+  $("#hidden").toggleClass("opacity-100");
+  $(".txt-dsc").toggleClass("opacity-100");
+  $(".txt-dsc").toggleClass("opacity-0");
+  if(login == 1 ){
+    $(".btn-log").attr("id", "registrasi");
+    $(".text").html("silahkan daftarkan akun anda untuk melanjutkan")
+    login = 0;
+  } else{
+    $(".btn-log").attr("id", "registrasi");
+    $(".text").html("silahkan login dengan akun yang anda punya")
+    login = 1;
+  }
+});
