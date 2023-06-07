@@ -12,11 +12,13 @@
     <style>body{font-family: nunito;}</style>
   </head>
   <body>
-    <div class="w-full h-screen flex text-sm flex-col md:flex-row items-stretch">
-      <div class="w-full h-full"></div>
+    <div class="w-full bg-gray-100 min-h-screen md:h-screen flex text-sm flex-col md:flex-row items-stretch">
+      <div class="w-full ">
+        <img src="images/desktop.png" class="w-full h-full object-cover" alt="">
+      </div>
       <form class="w-full md:items-start md:justify-center justify-center py-4 flex px-3 h-full flex-col">
         <div class="mb-4">
-          <h1 class="font-extrabold bg-white w-full text-xl">Masuk / Daftar</h1>
+          <h1 class="font-extrabold w-full text-xl">Masuk / Daftar</h1>
           <p class="text">silahkan login dengan akun yang anda punya</p>
         </div>
         <div class="md:max-w-sm flex mt-3 flex-col group w-full relative">
@@ -29,7 +31,7 @@
         </div>
         <div class="flex mt-3 gap-2 group w-full relative items-center">
           <input type="checkbox" name="" id="pass-button" class="hidden">
-          <label for="pass-button" class="h-4 aspect-square overflow-hidden grid place-items-center border-black rounded border relative text-white">
+          <label for="pass-button" class="h-4 aspect-square bg-white overflow-hidden grid place-items-center border-black rounded border relative text-white">
             <div class="bg-pass absolute w-0 h-0 duration-700 bg-black"></div>
             <ion-icon name="ios-checkmark"></ion-icon>
           </label>
