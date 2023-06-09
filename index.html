@@ -107,6 +107,16 @@
         </div>
       </div>
     </div>
+    <div class="w-full h-screen fixed bg-white/50 backdrop-blur top-0 left-0 z-50 hidden lock"></div>
+    $(document).ready(function () {
+        lockDesc();
+        function lockDesc() {
+          $("html").mouseleave(function () { 
+            // alert("hayo ngapain mass")s
+            $(".lock").removeClass("hidden");
+          });
+        }
+      });
     <script src="JS/script.js"></script>
     <script src="JS/date.js"></script>
   </body>
