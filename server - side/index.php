@@ -4,6 +4,7 @@
 session_start();
 if(!isset($_SESSION['login'])) {
   echo `<script>blockWall()</script>`;
+  header("location: login.php");
 }
 $account = $_SESSION['login'];
 $row     = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM account WHERE username = '$account'"));

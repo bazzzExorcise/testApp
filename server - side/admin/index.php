@@ -3,7 +3,7 @@
 <?php
 session_start();
 if(!isset($_SESSION['login'])) {
-  echo `<script>blockWall()</script>`;
+  header("location: ../login.php");
 }
 $row = mysqli_query($conn, "SELECT * FROM account WHERE status = 'peserta'");
 ?>
@@ -15,34 +15,94 @@ $row = mysqli_query($conn, "SELECT * FROM account WHERE status = 'peserta'");
     <form action="" class="relative mt-2 w-full overflow-hidden rounded-lg border-2 border-black bg-yellow-400">
       <input type="text" class="font-extrabold lowercase focus:outline-none w-full bg-transparent px-3 py-2 placeholder:font-extrabold placeholder:text-black" placeholder="cari peserta" />
     </form>
-    <button class="w-full rounded-lg border-2 border-black bg-green-400 px-3 py-2 font-extrabold">Tambah Peserta</button>
-    <div class="mt-2 flex w-full flex-col  gap-2">
-      <?php foreach($row as $rows) : ?>
-      <div class="flex w-full gap-2 justify-between">
-        <div>
-          <h1 class="text-lg font-extrabold"><?= $rows['username'] ?></h1>
-          <p class="text-sm"><?= $rows['kelas'] ?> <?= $rows['jurusan'] ?> - <?= $rows['nomor'] ?></p>
-        </div>
-        <div class="flex items-center font-extrabold whitespace-nowrap gap-1">
-          <button class="rounded-lg border-2 border-black bg-green-400 px-3 py-1 text-sm">Edit</button>
-          <button class="rounded-lg border-2 border-black bg-red-500 px-3 py-1 text-sm">Delete</button>
-        </div>
-      </div>
-      <?php endforeach; ?>
+    <button class="w-full button-pop rounded-lg border-2 border-black bg-green-400 px-3 py-2 font-extrabold">Tambah Peserta</button>
+    <div class="mt-2 flex w-full flex-col content gap-2">
     </div>
   </div>
 </div>
-  <div class="font-extrabold block-wall opacity-0 -z-30 fixed bg-white/50 backdrop-blur-sm duration-500 top-0 left-0 h-screen w-full grid place-items-center">
+  <div class="font-extrabold add-wall opacity-0 -z-30 fixed bg-white/50 backdrop-blur-sm duration-500 top-0 left-0 h-screen w-full grid place-items-center">
     <div class="p-4 max-w-xs bg-sky-300 w-full rounded-md flex flex-col items-center justify-center gap-2 border-2 border-black">
-      <h1 class="text-2xl text-center">Mohon Maaf</h1>
-      <p class="text-sm text-center">anda belum melakukan login dalam situs ini seilahkan login dan lanjutkan</p>
-      <a href="login.php" class="text-white bg-black rounded-lg w-full py-2 text-center">Login</a>
+      <div class="w-full flex justify-end button-pop"><ion-icon name="close"></ion-icon></div>
+      <h1 class="text-2xl text-center">Tambah Siswa</h1>
+      <form class="add-data w-full flex flex-col gap-2" action="../system/add-siswa.php" method="post">
+        <div class="w-full alert-box"></div>
+        <input type="text" name="nama" class="start border-2 border-black input-add rounded-lg py-2 px-3 placeholder:text-black" placeholder="nama siswa" id="">
+        <div class="grid grid-cols-3 gap-2 max-w-full">
+          <select name="kelas" class="border-2 border-black input-add rounded-lg py-2 px-3 placeholder:text-black" placeholder="nama siswa" id="">
+            <option value="X">X</option>
+            <option value="XI">XI</option>
+            <option value="XII">XII</option>
+          </select>
+          <select name="jurusan" class="border-2 border-black input-add rounded-lg py-2 px-3 placeholder:text-black" placeholder="nama siswa" id="">
+            <option value="MIPA">MIPA</option>
+            <option value="IIK">IIK</option>
+            <option value="IBB">IBB</option>
+            <option value="IPS">IPS</option>
+          </select>
+          <input type="number" name="nomor" class="border-2 border-black input-add rounded-lg py-2 px-3 placeholder:text-black" placeholder="kelas" id="">
+        </div>
+        <input type="number" name="no-test" class="border-2 border-black rounded-lg py-2 px-3 placeholder:text-black" placeholder="nomor ujian" id="">
+        <button type="submit" class="bg-green-400 rounded-lg w-full py-2 text-center border-2 border-black">Buat</button>
+      </form>
     </div>
   </div>
   <script>
-    function blockWall() {
-      $(".block-wall").removeClass("-z-30", "opacity-0");
-      $(".block-wall").addClass("z-30", "opacity-100");
+    $(document).ready(function () {
+      getData();
+      $(".add-data").submit(function (e) { 
+        e.preventDefault();
+        $.ajax({
+          type: $(this).attr('method'),
+          url: $(this).attr('action'),
+          data: $(".add-data").serialize(),
+          success: function (response) {
+            if(response != "berhasil menambahkan") {
+              $('.alert-box').html(`<div class="border-2 border-black rounded-lg py-2 px-3 bg-red-500">${response}</div>`)
+            }else{
+              $('.alert-box').html(`<div class="border-2 border-black rounded-lg py-2 px-3 bg-green-400">${response}</div>`)
+              resetForm()
+            }
+            console.log(response)
+            getData()
+          }
+        });
+        $(".edit-button").click(function (e) { 
+          e.preventDefault();
+          $(".update-card").toggleClass("-z-30 z-30 opacity-0");
+        });
+      });
+    });
+    function getData() {
+      $.get("../system/siswa.php", function(data) {
+        $(".content").html(data);
+        $(".button-pop").click(function (e) { 
+          e.preventDefault();
+          $(".add-wall").toggleClass("-z-30 z-30 opacity-0");
+        });
+        $(".delete").click(function (e) { 
+          e.preventDefault();
+          $.ajax({
+            type: "get",
+            url: $(this).attr('href'),
+            data: $(this).serialize(),
+            success: function (response) {
+              getData()
+            }
+          });
+        });
+        // $(".update").click(function (e) { 
+        //   e.preventDefault();
+        //   $('[name=nama]').val($(this).attr('nama'))
+        //   $('[name=kelas]').val($(this).attr('kelas'))
+        //   $('[name=jurusan]').val($(this).attr('jurusan'))
+        //   $('[name=nomor]').val($(this).attr('no-jurusan'))
+        //   $('[name=no-test]').val($(this).attr('nomor'))
+        // });
+      })
+    }
+    function resetForm() {
+      $('.input-add').val('');
+      $('.start').focus();
     }
   </script>
 </body>
