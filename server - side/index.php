@@ -1,13 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
-</head>
+<?php include "include/header.php" ?>
+<?php include "system/conn.php" ?>
+<?php
+session_start();
+if(!isset($_SESSION['login'])) {
+  echo `<script>blockWall()</script>`;
+}
+$account = $_SESSION['login'];
+$row     = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM account WHERE username = '$account'"));
+if($row['status'] == "admin") {
+  header("location: admin/index.php");
+}
+?>
 <body style="font-family: comic neue;" class="font-extrabold justify-center flex">
   <div class="relative w-full flex flex-col items-center max-w-sm max-h-screen overflow-auto">
     <div class="w-full px-4 flex flex-col pt-2 gap-4">
@@ -38,8 +41,24 @@
           <h1 class="font-extrabold text-3xl">Alquran Hadist</h1>
           <p class="text-sm flex gap-1 items-center group">20 januari 2023 - 10:00 WIB</p>
         </div>
+        <div class="w-full flex justify-end">
+          <a href="system/logout.php" class="font-extrabold rounded-lg border-b-4 border-2 border-black bg-red-500 px-4 py-2">log out</a>
+        </div>
       </div>
     </div>
   </div>
+  <div class="font-extrabold block-wall opacity-0 -z-30 fixed bg-white/50 backdrop-blur-sm duration-500 top-0 left-0 h-screen w-full grid place-items-center">
+    <div class="p-4 max-w-xs bg-sky-300 w-full rounded-md flex flex-col items-center justify-center gap-2 border-2 border-black">
+      <h1 class="text-2xl text-center">Mohon Maaf</h1>
+      <p class="text-sm text-center">anda belum melakukan login dalam situs ini seilahkan login dan lanjutkan</p>
+      <a href="login.php" class="text-white bg-black rounded-lg w-full py-2 text-center">Login</a>
+    </div>
+  </div>
+  <script>
+    function blockWall() {
+      $(".block-wall").removeClass("-z-30", "opacity-0");
+      $(".block-wall").addClass("z-30", "opacity-100");
+    }
+  </script>
 </body>
 </html>
