@@ -1,15 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
-</head>
+<?php include "include/header.php" ?>
 <body style="font-family: comic neue;" class="font-extrabold justify-center flex">
-  <form class="relative w-full flex flex-col gap-4 items-center max-w-sm justify-center min-h-screen overflow-auto">
+  <form class="relative w-full flex login-form flex-col gap-4 items-center max-w-sm justify-center min-h-screen overflow-auto">
     <div class="w-full flex flex-col items-center">
       <h1 class="text-3xl">Login</h1>
       <p class="text-sm">silahkan masuk dengan akun yang terdaftar</p>
@@ -29,6 +20,14 @@
         Login <ion-icon name="arrow-round-forward" class="group-hover:translate-x-2 duration-300"></ion-icon>
       </button>
     </div>
-  </form>   
+  </form>
+  <script>
+    $(document).ready(function () {
+      $(".login-form").submit(function (e) { 
+        e.preventDefault();
+        console.log("sudah di tekan");
+      });
+    });
+  </script>
 </body>
 </html>
