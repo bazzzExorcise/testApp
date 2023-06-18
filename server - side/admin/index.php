@@ -10,10 +10,19 @@ $row = mysqli_query($conn, "SELECT * FROM account WHERE status = 'peserta'");
 <body class="flex justify-center">
 <div class="relative w-full flex flex-col items-center max-w-sm max-h-screen overflow-auto">
   <div class="w-full p-4">
+    <div class="w-full py-2 mb-2 border-b-2 border-black flex items-center justify-between">
+      <div class="flex gap-4">
+        <a class="hover:font-extrabold duration-500" href="index.php">Peserta</a>
+        <a class="hover:font-extrabold duration-500" href="penjaga.php">Penjaga</a>
+      </div>
+      <div>
+      <a class="font-extrabold py-1 px-3 bg-red-500 border-2 border-black rounded-lg duration-500" href="../system/logout.php">Log Out</a>
+      </div>
+    </div>
     <h1 class="text-xl font-extrabold">Daftar Siswa</h1>
     <p>daftar siswa peserta siswa ujian</p>
-    <form action="" class="relative mt-2 w-full overflow-hidden rounded-lg border-2 border-black bg-yellow-400">
-      <input type="text" class="font-extrabold lowercase focus:outline-none w-full bg-transparent px-3 py-2 placeholder:font-extrabold placeholder:text-black" placeholder="cari peserta" />
+    <form action="../system/search-siswa.php" class="relative mt-2 w-full overflow-hidden rounded-lg border-2 border-black bg-yellow-400">
+      <input type="text" class="search font-extrabold lowercase focus:outline-none w-full bg-transparent px-3 py-2 placeholder:font-extrabold placeholder:text-black" placeholder="cari peserta" name="search" />
     </form>
     <button class="w-full button-pop rounded-lg border-2 border-black bg-green-400 px-3 py-2 font-extrabold">Tambah Peserta</button>
     <div class="mt-2 flex w-full flex-col content gap-2">
@@ -42,12 +51,35 @@ $row = mysqli_query($conn, "SELECT * FROM account WHERE status = 'peserta'");
           <input type="number" name="nomor" class="border-2 border-black input-add rounded-lg py-2 px-3 placeholder:text-black" placeholder="kelas" id="">
         </div>
         <input type="number" name="no-test" class="border-2 border-black rounded-lg py-2 px-3 placeholder:text-black" placeholder="nomor ujian" id="">
+        <input type="text" name="password" class="border-2 border-black rounded-lg py-2 px-3 placeholder:text-black" placeholder="password" id="">
+        <button type="submit" class="bg-green-400 rounded-lg w-full py-2 text-center border-2 border-black">Buat</button>
+      </form>
+    </div>
+  </div>
+  <div class="font-extrabold update-wall opacity-0 -z-30 fixed bg-white/50 backdrop-blur-sm duration-500 top-0 left-0 h-screen w-full grid place-items-center">
+    <div class="p-4 max-w-xs bg-sky-300 w-full rounded-md flex flex-col items-center justify-center gap-2 border-2 border-black">
+      <div class="w-full flex justify-end update-pop"><ion-icon name="close"></ion-icon></div>
+      <h1 class="text-2xl text-center">Edit Data Siswa</h1>
+      <form class="update-data w-full flex flex-col gap-2" action="../system/update-siswa.php" method="post">
+        <div class="w-full update-box"></div>
+        <input type="text" name="edit-nama" class="start border-2 border-black input-update rounded-lg py-2 px-3 placeholder:text-black" placeholder="nama siswa" id="">
+        <input type="hidden" name="id" class="start border-2 border-black input-update rounded-lg py-2 px-3 placeholder:text-black" placeholder="nama siswa" id="">
+        <div class="grid grid-cols-3 gap-2 max-w-full">
+          <input type="text" name="edit-kelas" class="start border-2 border-black input-update rounded-lg py-2 px-3 placeholder:text-black" placeholder="nama siswa" id="">
+          <input type="text" name="edit-jurusan" class="col-span-2 start border-2 border-black input-update rounded-lg py-2 px-3 placeholder:text-black" placeholder="nama siswa" id="">
+        </div>
+        <input type="number" name="edit-no-test" class="border-2 border-black rounded-lg py-2 px-3 placeholder:text-black" placeholder="nomor ujian" id="">
+        <input type="text" name="edit-password" class="border-2 border-black rounded-lg py-2 px-3 placeholder:text-black" placeholder="password" id="">
         <button type="submit" class="bg-green-400 rounded-lg w-full py-2 text-center border-2 border-black">Buat</button>
       </form>
     </div>
   </div>
   <script>
     $(document).ready(function () {
+      $(".button-pop").click(function (e) { 
+        e.preventDefault();
+        $(".add-wall").toggleClass("-z-30 z-30 opacity-0");
+      });
       getData();
       $(".add-data").submit(function (e) { 
         e.preventDefault();
@@ -69,16 +101,14 @@ $row = mysqli_query($conn, "SELECT * FROM account WHERE status = 'peserta'");
         $(".edit-button").click(function (e) { 
           e.preventDefault();
           $(".update-card").toggleClass("-z-30 z-30 opacity-0");
+          $(".update-box").html(``);
         });
       });
     });
     function getData() {
       $.get("../system/siswa.php", function(data) {
         $(".content").html(data);
-        $(".button-pop").click(function (e) { 
-          e.preventDefault();
-          $(".add-wall").toggleClass("-z-30 z-30 opacity-0");
-        });
+        
         $(".delete").click(function (e) { 
           e.preventDefault();
           $.ajax({
@@ -90,14 +120,48 @@ $row = mysqli_query($conn, "SELECT * FROM account WHERE status = 'peserta'");
             }
           });
         });
-        // $(".update").click(function (e) { 
-        //   e.preventDefault();
-        //   $('[name=nama]').val($(this).attr('nama'))
-        //   $('[name=kelas]').val($(this).attr('kelas'))
-        //   $('[name=jurusan]').val($(this).attr('jurusan'))
-        //   $('[name=nomor]').val($(this).attr('no-jurusan'))
-        //   $('[name=no-test]').val($(this).attr('nomor'))
-        // });
+        $(".update-pop").click(function (e) { 
+          e.preventDefault();
+          $(".update-wall").toggleClass("-z-30 z-30 opacity-0");
+          $("[name=edit-nama]").val($(this).attr("nama"));
+          $("[name=edit-jurusan]").val($(this).attr("jurusan"));
+          $("[name=edit-kelas]").val($(this).attr("kelas"));
+          $("[name=edit-no-test]").val($(this).attr("nomor"));
+          $("[name=edit-password]").val($(this).attr("pass"));
+          $("[name=id]").val($(this).attr("id"));
+        });
+        $(".update-data").submit(function (e) { 
+          e.preventDefault();
+          $.ajax({
+            type: $(this).attr('method'),
+            url: $(this).attr('action'),
+            data: $(this).serialize(),
+            success: function (response) {
+              console.log(response);
+              if(response != "berhasil mengubah") {
+                $('.update-box').html(`<div class="border-2 border-black rounded-lg py-2 px-3 bg-red-500">${response}</div>`)
+              }else{
+                $('.update-box').html(`<div class="border-2 border-black rounded-lg py-2 px-3 bg-green-400">${response}</div>`)
+                resetForm()
+              }
+            }
+          });
+        });
+        $(".search").keyup(function (e) { 
+          $.ajax({
+            type: "POST",
+            url: "../system/search-siswa.php",
+            data: $(".search"),
+            success: function (response) {
+              console.log(response);
+              $(".content").html(response);
+            }
+          });
+        });
+        $(".search").blur(function (e) { 
+          e.preventDefault();
+          getData();
+        });
       })
     }
     function resetForm() {
