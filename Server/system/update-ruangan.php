@@ -8,6 +8,6 @@ $nama = $_POST['edit-nama'];
 if( empty($nama) ) {
   echo "tolong masukan nama ruangan";
 }else{
-  mysqli_query($conn, "UPDATE room SET `name` = '$nama' WHERE id = '$id'");
+  $query = mysqli_query($conn, "UPDATE room SET name = '$nama' WHERE id = '$id' ");
   echo "berhasil mengubah";
 }

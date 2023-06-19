@@ -37,6 +37,9 @@
             }else if(response == "admin-success") {
               $("#container").html(`<div class="relative flex items-center w-full px-2 py-2 justify-center bg-lime-400 overflow-hidden rounded-md border-2 border-black">login berhasil silahkan tunggu sejenak</div>`);
               location.href = "admin/index.php"
+            }else if(response == "keeper-success") {
+              $("#container").html(`<div class="relative flex items-center w-full px-2 py-2 justify-center bg-lime-400 overflow-hidden rounded-md border-2 border-black">login berhasil silahkan tunggu sejenak</div>`);
+              location.href = "keeper-section/index.php"
             }else{
               console.log(response);
               $("#container").html(`<div class="relative flex items-center w-full px-2 py-2 justify-center bg-red-500 overflow-hidden rounded-md border-2 border-black">${response}</div>`);

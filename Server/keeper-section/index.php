@@ -1,13 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
-</head>
+<?php include "../include/header.php"; ?>
 <body style="font-family: comic neue;" class="font-extrabold justify-center flex">
   <div class="relative w-full flex flex-col items-center max-w-sm max-h-screen overflow-auto">
     <div class="w-full px-4 flex flex-col pt-2 gap-4">
@@ -33,9 +24,31 @@
             <button class="px-3 border-2 border-black py-1 rounded-md bg-black">edit soal</button>
           </div>
         </div>
-        <button class="w-full bg-yellow-500 border-2 border-black border-b-4 py-2 rounded-lg">tambah soal</button>
+        <button class="w-full bg-yellow-500 border-2 soal-button border-black border-b-4 py-2 rounded-lg">tambah soal</button>
       </div>
     </div>
   </div>
+  <div class="font-extrabold add-soal opacity-0 -z-30 fixed bg-white/50 backdrop-blur-sm duration-500 top-0 left-0 h-screen w-full grid place-items-center">
+    <div class="p-4 max-w-xs bg-sky-300 w-full rounded-md flex flex-col items-center justify-center gap-2 border-2 border-black">
+      <div class="w-full flex justify-end soal-button"><ion-icon name="close"></ion-icon></div>
+      <h1 class="text-2xl text-center">Edit Data ruangan</h1>
+      <form class="update-data w-full flex flex-col gap-2" action="../system/add-soal.php" method="post">
+        <div class="w-full update-box"></div>
+        <input type="text" name="name" class="start border-2 border-black input-update rounded-lg py-2 px-3 placeholder:text-black" placeholder="nama ruangan" id="">
+        <input type="text" name="kelas" class="start border-2 border-black input-update rounded-lg py-2 px-3 placeholder:text-black" placeholder="kelas" id="">
+        <button type="submit" class="bg-green-400 rounded-lg w-full py-2 text-center border-2 border-black">Buat</button>
+        <a href="../system/logout.php" class="bg-black">logout</a>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    $(document).ready(function () {
+      $(".soal-button").click(function (e) { 
+        e.preventDefault();
+        $(".add-soal").toggleClass("opacity-0 -z-30 z-30");
+      });
+    });
+  </script>
 </body>
 </html>

@@ -8,6 +8,7 @@ $jurusan = $_POST['jurusan'];
 $nomor = $_POST['nomor'];
 $password = $_POST['password'];
 $notest = $_POST['no-test'];
+$ruangan = $_POST['ruangan'];
 
 if( empty($nama) ) {
   echo "masukan nama tolong";
@@ -19,8 +20,8 @@ if( empty($nama) ) {
     if( empty($notest) ) {
       echo "tolong masukan nomor test";
     }else{
-      mysqli_query($conn, "INSERT INTO account (`username`, `password` , `kelas`, `jurusan`, `nomor`, `status`)
-                          VALUES ('$nama', '$password', '$kelas', '$jurusan', '$notest', 'peserta')");
+      mysqli_query($conn, "INSERT INTO account (`username`, `password` , `kelas`, `jurusan`, `nomor`, `status`, `ruangan`)
+                          VALUES ('$nama', '$password', '$kelas', '$jurusan', '$notest', 'peserta', '$ruangan')");
       echo "berhasil menambahkan";
     }
   }

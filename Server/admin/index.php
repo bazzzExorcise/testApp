@@ -5,7 +5,7 @@ session_start();
 if(!isset($_SESSION['login'])) {
   header("location: ../login.php");
 }
-$row = mysqli_query($conn, "SELECT * FROM account WHERE status = 'peserta'");
+$row = mysqli_query($conn, "SELECT * FROM room");
 ?>
 <body class="flex justify-center">
 <div class="relative w-full flex flex-col items-center max-w-sm max-h-screen overflow-auto">
@@ -53,6 +53,8 @@ $row = mysqli_query($conn, "SELECT * FROM account WHERE status = 'peserta'");
         </div>
         <input type="number" name="no-test" class="border-2 border-black rounded-lg py-2 px-3 placeholder:text-black" placeholder="nomor ujian" id="">
         <input type="text" name="password" class="border-2 border-black rounded-lg py-2 px-3 placeholder:text-black" placeholder="password" id="">
+        <select name="ruangan" class="border-2 border-black rounded-lg py-2 px-3 placeholder:text-black" placeholder="ruangan" id="select">
+        </select>
         <button type="submit" class="bg-green-400 rounded-lg w-full py-2 text-center border-2 border-black">Buat</button>
       </form>
     </div>
@@ -71,6 +73,7 @@ $row = mysqli_query($conn, "SELECT * FROM account WHERE status = 'peserta'");
         </div>
         <input type="number" name="edit-no-test" class="border-2 border-black rounded-lg py-2 px-3 placeholder:text-black" placeholder="nomor ujian" id="">
         <input type="text" name="edit-password" class="border-2 border-black rounded-lg py-2 px-3 placeholder:text-black" placeholder="password" id="">
+        <input type="text" name="edit-ruangan" class="border-2 border-black rounded-lg py-2 px-3 placeholder:text-black" placeholder="ruangan" id="">
         <button type="submit" class="bg-green-400 rounded-lg w-full py-2 text-center border-2 border-black">Buat</button>
       </form>
     </div>
@@ -82,6 +85,7 @@ $row = mysqli_query($conn, "SELECT * FROM account WHERE status = 'peserta'");
         $(".add-wall").toggleClass("-z-30 z-30 opacity-0");
       });
       getData();
+      getRoom();
       $(".add-data").submit(function (e) { 
         e.preventDefault();
         $.ajax({
@@ -106,6 +110,11 @@ $row = mysqli_query($conn, "SELECT * FROM account WHERE status = 'peserta'");
         });
       });
     });
+    function getRoom() {
+      $.get("../system/ruangan-select.php", function(data) {
+        $("#select").html(data);
+      })
+    }
     function getData() {
       $.get("../system/siswa.php", function(data) {
         $(".content").html(data);
@@ -129,6 +138,7 @@ $row = mysqli_query($conn, "SELECT * FROM account WHERE status = 'peserta'");
           $("[name=edit-kelas]").val($(this).attr("kelas"));
           $("[name=edit-no-test]").val($(this).attr("nomor"));
           $("[name=edit-password]").val($(this).attr("pass"));
+          $("[name=edit-ruangan]").val($(this).attr("ruangan"));
           $("[name=id]").val($(this).attr("id"));
         });
         $(".update-data").submit(function (e) { 

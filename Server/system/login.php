@@ -24,6 +24,10 @@ if(empty($username)) {
         }else {
           if($row['status'] == "peserta") {
             echo "peserta-success";
+          }else{
+            if($row['status'] == "penjaga") {
+              echo "keeper-success";
+            }
           }
         }
       }

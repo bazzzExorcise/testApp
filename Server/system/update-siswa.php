@@ -8,6 +8,7 @@ $kelas = $_POST['edit-kelas'];
 $jurusan = $_POST['edit-jurusan'];
 $notest = $_POST['edit-no-test'];
 $password = $_POST['edit-password'];
+$ruangan = $_POST['edit-ruangan'];
 
 if( empty($nama) ) {
   echo "masukan nama tolong";
@@ -19,7 +20,7 @@ if( empty($nama) ) {
       echo "tolong masukan nomor test";
     }else{
       mysqli_query($conn, "UPDATE account
-                          SET username = '$nama', password = '$password', kelas = '$kelas', jurusan = '$jurusan', nomor = '$notest' 
+                          SET ruangan = '$ruangan', username = '$nama', password = '$password', kelas = '$kelas', jurusan = '$jurusan', nomor = '$notest' 
                           WHERE id = $id;
                           ");
       echo "berhasil mengubah";
