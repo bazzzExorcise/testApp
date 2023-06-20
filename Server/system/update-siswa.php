@@ -23,6 +23,8 @@ if( empty($nama) ) {
                           SET ruangan = '$ruangan', username = '$nama', password = '$password', kelas = '$kelas', jurusan = '$jurusan', nomor = '$notest' 
                           WHERE id = $id;
                           ");
+      mysqli_query($conn, "UPDATE permission
+                          SET ruangan = '$ruangan', username = '$nama';");
       echo "berhasil mengubah";
     }
   }

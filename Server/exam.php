@@ -1,13 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
-</head>
+<?php include "include/header.php" ?>
+<?php 
+session_start();
+if(!isset($_SESSION['login'])) {
+  header("location: login.php");
+}
+?>
 <body style="font-family: comic neue;" class="font-extrabold justify-center flex">
   <div class="flex flex-col gap-4 bg-white items-stretch max-w-sm min-h-screen">
     <nav class="text-white border-b-2 left-0 border-black top-0 py-2 flex flex-col items-center w-full fixed bg-pink-500">
@@ -64,21 +61,21 @@
       </div>
     </form>
   </div>
-  <div class="font-extrabold fixed -z-30 bg-white/50 backdrop-blur-sm duration-300 top-0 left-0 h-screen w-full grid place-items-center">
+  <div class="font-extrabold cheat-wall fixed -z-30 bg-white/50 backdrop-blur-sm duration-300 top-0 left-0 h-screen w-full grid place-items-center">
     <div class="px-4 max-w-xs aspect-square bg-white w-full rounded-md flex flex-col items-center justify-center gap-2 border-2 border-black">
       <ion-icon name="alert" class="text-red-500 text-7xl "></ion-icon>
       <h1 class="text-xl text-center">indikasi melakukan kecurangan</h1>
       <p class="text-sm text-center">mohon maaf sebelumnya namun anda terindikasi melakukan kecurangan, silahkan minta pengawas untuk membuka soalmu kembali dan refres setelah dibuka oleh pengawas</p>
     </div>
   </div>
-  <div class="font-extrabold fixed z-30 bg-white/50 backdrop-blur-sm duration-300 top-0 left-0 h-screen w-full grid place-items-center">
+  <div class="font-extrabold fixed -z-30 bg-white/50 backdrop-blur-sm duration-300 top-0 left-0 h-screen w-full grid place-items-center">
     <div class="px-4 max-w-xs aspect-square bg-sky-300 w-full rounded-md flex flex-col items-center justify-center gap-2 border-2 border-black">
       <h1 class="text-2xl text-center">Selamat</h1>
       <p class="text-sm text-center">ujian anda telah selesai silahkan tunggu hasilnya di raport hehehe, have a nice day</p>
       <a href="" class="text-white bg-black rounded-lg w-full py-2 text-center">keluar</a>
     </div>
   </div>
-  <div class="font-extrabold fixed -z-30 bg-white/50 backdrop-blur-sm duration-300 top-0 left-0 h-screen w-full grid place-items-center">
+  <div class="font-extrabold active-wall fixed -z-30 bg-white/50 backdrop-blur-sm duration-300 top-0 left-0 h-screen w-full grid place-items-center">
     <div class="px-4 max-w-xs aspect-square bg-yellow-500 w-full rounded-md flex flex-col items-center justify-center gap-2 border-2 border-black">
       <h1 class="text-xl text-center">Peringatan!</h1>
       <p class="text-sm">website ini sangat sensitive. aksi yang anda lakukan saat menyentuh bagian yang bukan berasal dari website akan dianggap sebagai usaha untuk melakukan kecurangan</p>
@@ -90,7 +87,47 @@
           <li>membuka tab baru</li>
         </ul>
       </p>
+      <p class="text-sm">silahkan tunggu pengawas ruangan untuk membuka soal anda</p>
     </div>
   </div>
+  <script>
+    $(document).ready(function () {
+      getPermission();
+      cheatDetect();
+      function cheatDetect() {
+        $("html").mouseleave(function () { 
+          $.ajax({
+            type: "POST",
+            url: "system/cheat-detect.php",
+            data: $(this).serialize(),
+            success: function (response) {
+              console.log(response);
+              if(response == "cheat") {
+                $(".cheat-wall").addClass(" z-30");
+                $(".cheat-wall").removeClass(" -z-30");
+              }
+            }
+          });
+        })
+      }
+      function getPermission() {
+        $.ajax({
+          type: "POST",
+          url: "system/check-permission.php",
+          data: $(this).serialize(),
+          success: function (response) {
+            console.log(response);
+            if(response == "not active") {
+              $(".active-wall").addClass("z-30");
+              $(".active-wall").removeClass("-z-30");
+            }else if(response == "cheat") {
+              $(".cheat-wall").addClass(" z-30");
+              $(".cheat-wall").removeClass(" -z-30");
+            }
+          }
+        });
+      }
+    });
+  </script>
 </body>
 </html>

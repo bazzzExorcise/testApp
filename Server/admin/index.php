@@ -61,7 +61,7 @@ $row = mysqli_query($conn, "SELECT * FROM room");
   </div>
   <div class="font-extrabold update-wall opacity-0 -z-30 fixed bg-white/50 backdrop-blur-sm duration-500 top-0 left-0 h-screen w-full grid place-items-center">
     <div class="p-4 max-w-xs bg-sky-300 w-full rounded-md flex flex-col items-center justify-center gap-2 border-2 border-black">
-      <div class="w-full flex justify-end update-pop"><ion-icon name="close"></ion-icon></div>
+      <div class="w-full flex justify-end close-pop"><ion-icon name="close"></ion-icon></div>
       <h1 class="text-2xl text-center">Edit Data Siswa</h1>
       <form class="update-data w-full flex flex-col gap-2" action="../system/update-siswa.php" method="post">
         <div class="w-full update-box"></div>
@@ -132,7 +132,8 @@ $row = mysqli_query($conn, "SELECT * FROM room");
         });
         $(".update-pop").click(function (e) { 
           e.preventDefault();
-          $(".update-wall").toggleClass("-z-30 z-30 opacity-0");
+          $(".update-wall").removeClass("-z-30 opacity-0");
+          $(".update-wall").addClass("z-30");
           $("[name=edit-nama]").val($(this).attr("nama"));
           $("[name=edit-jurusan]").val($(this).attr("jurusan"));
           $("[name=edit-kelas]").val($(this).attr("kelas"));
@@ -141,6 +142,11 @@ $row = mysqli_query($conn, "SELECT * FROM room");
           $("[name=edit-ruangan]").val($(this).attr("ruangan"));
           $("[name=id]").val($(this).attr("id"));
         });
+        $(".close-pop").click(function (e) { 
+          e.preventDefault();
+          $(".update-wall").removeClass("z-30");
+          $(".update-wall").addClass("-z-30 opacity-0");
+        })
         $(".update-data").submit(function (e) { 
           e.preventDefault();
           $.ajax({
@@ -154,6 +160,7 @@ $row = mysqli_query($conn, "SELECT * FROM room");
               }else{
                 $('.update-box').html(`<div class="border-2 border-black rounded-lg py-2 px-3 bg-green-400">${response}</div>`)
                 resetForm()
+                getData();
               }
             }
           });

@@ -22,6 +22,8 @@ if( empty($nama) ) {
     }else{
       mysqli_query($conn, "INSERT INTO account (`username`, `password` , `kelas`, `jurusan`, `nomor`, `status`, `ruangan`)
                           VALUES ('$nama', '$password', '$kelas', '$jurusan', '$notest', 'peserta', '$ruangan')");
+      mysqli_query($conn, "INSERT INTO permission (`username`, `ruangan`, `permission`)
+                          VALUES ('$nama', '$ruangan', 'not active')");
       echo "berhasil menambahkan";
     }
   }

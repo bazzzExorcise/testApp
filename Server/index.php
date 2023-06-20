@@ -3,11 +3,11 @@
 <?php
 session_start();
 if(!isset($_SESSION['login'])) {
-  echo `<script>blockWall()</script>`;
   header("location: login.php");
 }
 $account = $_SESSION['login'];
 $row     = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM account WHERE username = '$account'"));
+$room    = $row['ruangan'];
 if($row['status'] == "admin") {
   header("location: admin/index.php");
 }
@@ -20,15 +20,12 @@ if($row['status'] == "admin") {
         <p class="text-sm date-format"></p>
       </div>
       <div class="content flex flex-col gap-2">
-        <div class="w-full text-white p-4 group rounded-lg border-b-4 border-2 border-black bg-orange-500">
+        <a href="exam.php?room-name=<?= $room ?>" class="w-full text-white p-4 group rounded-lg border-b-4 border-2 border-black bg-orange-500">
           <h1 class="font-extrabold text-3xl">Biologi</h1>
           <p class="text-sm flex gap-1 items-center group">masuk ruangan ujian <ion-icon class="duration-300 group-hover:translate-x-2" name="arrow-round-forward"></ion-icon></p>
-        </div>
-        <div class="w-full p-4 group rounded-lg border-b-4 border-2 border-black bg-sky-400">
-          <h1 class="font-extrabold text-3xl">Matematika</h1>
-          <p class="text-sm flex gap-1 items-center group">10:00 WIB</p>
-        </div>
+        </a>
       </div>
+      <a href="system/logout.php">log out</a>
     </div>
   </div>
   <div class="font-extrabold room-wall opacity-0 -z-30 fixed bg-white/50 backdrop-blur-sm duration-500 top-0 left-0 h-screen w-full grid place-items-center">
@@ -41,7 +38,6 @@ if($row['status'] == "admin") {
       <a href="login.php" class="text-white bg-black rounded-lg w-full py-2 text-center">Login</a>
     </div>
   </div>
-  <a href="system/logout.php">log out</a>
   <script>
     $(document).ready(function () {
       var date = new Date();
