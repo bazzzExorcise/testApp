@@ -32,7 +32,9 @@ $room = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM room  WHERE id = $
         queryParams[parts[0]] = decodeURIComponent(parts[1] || '');
       });
       console.log(queryParams);
-      getData();
+      setInterval(() => {
+        getData();
+      }, 200);
       function getData() {
         $.get(`../system/get-room.php?id=${queryParams.id}`, function(data) {
           $("#content").html(data);
@@ -61,7 +63,6 @@ $room = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM room  WHERE id = $
           }
         });
       });
-      
     })
     
   </script>

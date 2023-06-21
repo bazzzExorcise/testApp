@@ -57,7 +57,7 @@ if(!isset($_SESSION['login'])) {
         <div class="border rounded-full w-full mt-4 border-black"></div>
       </div>
       <div class="px-4 w-full">
-        <button class="rounded-lg bg-blue-500 border-2 border-black py-2 w-full">kirim jawaban</button>
+        <button class="done rounded-lg bg-blue-500 border-2 border-black py-2 w-full">kirim jawaban</button>
       </div>
     </form>
   </div>
@@ -92,8 +92,21 @@ if(!isset($_SESSION['login'])) {
   </div>
   <script>
     $(document).ready(function () {
-      getPermission();
-      cheatDetect();
+      setInterval(() => {
+        getPermission();
+        cheatDetect();
+      }, 300);
+      $(".done").click(function (e) { 
+        e.preventDefault();
+        $.ajax({
+          type: "POST",
+          url: "system/reset-permission.php",
+          data: $(this).serialize(),
+          success: function (response) {
+            location.href = response
+          }
+        });
+      });
       function cheatDetect() {
         $("html").mouseleave(function () { 
           $.ajax({
@@ -123,6 +136,11 @@ if(!isset($_SESSION['login'])) {
             }else if(response == "cheat") {
               $(".cheat-wall").addClass(" z-30");
               $(".cheat-wall").removeClass(" -z-30");
+            }else if(response == "active") {
+              $(".cheat-wall").addClass("-z-30");
+              $(".cheat-wall").removeClass("z-30");
+              $(".active-wall").addClass("-z-30");
+              $(".active-wall").removeClass("z-30");
             }
           }
         });
